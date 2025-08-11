@@ -1,2 +1,6 @@
+/__pycache__/
+
 /datasets_raw/
-/results/
+/datasets_preprocessed/
+/results*/
+/visualization/
