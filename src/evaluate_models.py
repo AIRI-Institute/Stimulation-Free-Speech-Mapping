@@ -24,8 +24,8 @@ from sklearn.utils import compute_sample_weight
 from tqdm import tqdm
 from xgboost import XGBClassifier
 
-from constants import ESM_NEGATIVE, ESM_POSITIVE, PROJECT_ROOT
-from validation import get_average_roc, get_statistic, get_tables_subject
+from src.constants import DATA_PREPROCESSED, DATA_RAW, ESM_NEGATIVE, ESM_POSITIVE, MAIN_RESULTS, PROJECT_ROOT
+from src.validation import get_average_roc, get_statistic, get_tables_subject
 
 
 def load_json(json_path: str, encoding: Optional[str] = None):
@@ -550,8 +550,6 @@ def get_all_metrics(df_test_idx, df_test_results, label, subject_names, dfs_acti
     esm_negative_ = set(str(esm_value) for esm_value in ESM_NEGATIVE)
     esm_positive_ = set(str(esm_value) for esm_value in ESM_POSITIVE)
     thresholds = np.concatenate([[0], np.sort(df_test_results['prediction_proba'].values), [1]])
-    print('Prediction values:', df_test_results['prediction_proba'].values)
-    print('Thresholds:', thresholds)
     tables = get_tables_subject(df_test_results, thresholds, subject_names, dfs_active, esm_negative_,
                                 esm_positive_)
     
@@ -562,8 +560,6 @@ def get_all_metrics(df_test_idx, df_test_results, label, subject_names, dfs_acti
     senc, spec = get_average_ss(tables, thresholds, subject_names)
     ss_auc = get_ss_auc(senc, spec)
 
-    print('TPR:', tpr)
-    print('FPR:', fpr)
     print(f'{label}, test {df_test_idx}, roc_auc {roc_auc}, pc_auc {pc_auc}, ss_auc {ss_auc}')
 
     tables_dir = os.path.join(results_dir, 'confusion_matrices')
@@ -953,7 +949,8 @@ def run_monopolar_experiments_multi_freq_band(
                 perc_trials=perc_trials,
                 n_bootstraps=n_bootstraps,
                 disable_tqdm=disable_tqdm,
-                n_workers=n_workers
+                n_workers=n_workers,
+                class_weight=class_weight
             )
             results.append(res)
 
@@ -963,15 +960,15 @@ def parse_arguments():
 
     parser.add_argument(
         '--datasets-dir-name', type=str, help='A path to the folder (from the project root) to load dataset',
-        default='datasets_preprocessed', required=False
+        default=DATA_PREPROCESSED, required=False
     )
     parser.add_argument(
         '--raw-directory', type=str, help='A path to the folder (from the project root) with raw data',
-        default='datasets_raw', required=False
+        default=DATA_RAW, required=False
     )
     parser.add_argument(
         '--plots-save-dir', type=str, help='A path to the folder (from the project root) to save plots',
-        default='results', required=False
+        default=MAIN_RESULTS, required=False
     )
     parser.add_argument(
         '--data-sr', type=int, help='A sampling rate of data to be loaded', default=1000, required=False

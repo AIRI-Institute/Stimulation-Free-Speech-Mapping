@@ -17,8 +17,8 @@ from sklearn.tree import DecisionTreeClassifier
 from tqdm import tqdm
 from xgboost import XGBClassifier
 
-from constants import PROJECT_ROOT
-from evaluate_models import parse_arguments, plot_results, run_trial
+from src.constants import PROJECT_ROOT
+from src.evaluate_models import parse_arguments, plot_results, run_trial
 
 
 def compute_metrics(group, threshold):

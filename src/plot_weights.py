@@ -5,7 +5,7 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 
-from constants import PROJECT_ROOT, SUBJECTS
+from src.constants import MAIN_RESULTS, PROJECT_ROOT, SUBJECTS, VISUALIZATIONS
 
 
 def plot_single_pair(w, fig, w_ax, corr_ax, cbar_ax, feature_names, corr_matrix, x_times, x_ticks, n_steps_between_ticks):
@@ -187,11 +187,11 @@ def parse_arguments():
 
     parser.add_argument(
         '--results-dir', type=str, help='A path to the folder (from the project root) to extract results',
-        default='results', required=False
+        default=MAIN_RESULTS, required=False
     )
     parser.add_argument(
         '--plots-save-dir', type=str, help='A path to the folder (from the project root) to save plots',
-        default='visualization', required=False
+        default=VISUALIZATIONS, required=False
     )
     parser.add_argument(
         '--low-freq', type=int, help='A lower bound of a frequency band', default=100, required=False

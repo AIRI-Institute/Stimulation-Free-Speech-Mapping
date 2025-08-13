@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 
-from constants import PROJECT_ROOT
+from src.constants import MAIN_RESULTS, PROJECT_ROOT, VISUALIZATIONS
 
 
 def main(metrics_dir, plots_save_dir, low_freq, high_freq, step_freq, band_width, experiment, augmentation, models):
@@ -99,11 +99,11 @@ def parse_arguments():
 
     parser.add_argument(
         '--metrics-dir', type=str, help='A path to the folder (from the project root) with results',
-        default='results/perc-test-trials-None', required=False
+        default=os.path.join(MAIN_RESULTS, 'perc-test-trials-None'), required=False
     )
     parser.add_argument(
         '--plots-save-dir', type=str, help='A path to the folder (from the project root) to save plots',
-        default='visualization', required=False
+        default=VISUALIZATIONS, required=False
     )
     parser.add_argument(
         '--low-freq', type=int, help='A lower bound of a potential central frequency', default=75, required=False

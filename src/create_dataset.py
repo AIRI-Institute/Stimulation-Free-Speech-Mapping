@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 from tqdm import tqdm
 
-from constants import PROJECT_ROOT, SAMPLING_RATE
+from src.constants import DATA_PREPROCESSED, DATA_RAW, PROJECT_ROOT, SAMPLING_RATE
 
 
 class SimpleVAD:
@@ -511,11 +511,11 @@ def parse_arguments():
 
     parser.add_argument(
         '--datasets-dir-name', type=str, help='A path to the folder (from the project root) to save dataset',
-        default='datasets_preprocessed', required=False
+        default=DATA_PREPROCESSED, required=False
     )
     parser.add_argument(
         '--raw-directory', type=str, help='A path to the folder (from the project root) with raw data',
-        default='datasets_raw', required=False
+        default=DATA_RAW, required=False
     )
     parser.add_argument(
         '--target-sr', type=int, help='Sampling rate to use for prepared dataset', default=1000, required=False

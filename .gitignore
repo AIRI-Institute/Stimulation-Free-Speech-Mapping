@@ -1,6 +1,6 @@
-/__pycache__/
+__pycache__/
+.ipynb_checkpoints/
 
-/datasets_raw/
-/datasets_preprocessed/
-/results*/
-/visualization/
+/data/
+/results/
+/visualizations/

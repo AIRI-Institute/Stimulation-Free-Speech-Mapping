@@ -6,18 +6,18 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 
-from constants import PROJECT_ROOT
+from src.constants import PROJECT_ROOT, TRIALS_RESULTS, VISUALIZATIONS
 
 
 def add_metric_values(metric_values, metrics_path, print_perc_test,
-                      models_to_use=('XGBoost', 'AdaBoost', 'SVC', 'Logistic Regression')):
+                      models_to_use=('XGBoost', 'AdaBoost', 'SVC', 'LR')):
     models_stort_names = {
-        'Logistic Regression': 'LR',
         'Random Forest': 'RF',
         'Decision Tree': 'DT',
         'Gaussian Naive Bayes': 'NB'
     }
     metrics = pd.read_csv(metrics_path, index_col='Model')
+
     for model_name, model_metrics in metrics.iterrows():
         if model_name not in models_to_use:
             continue
@@ -84,11 +84,11 @@ def parse_arguments():
 
     parser.add_argument(
         '--bootstrap-metrics-dir', type=str, help='A path to the folder (from the project root) with bootstrap results',
-        default='results_trials_bootstraps', required=False
+        default=TRIALS_RESULTS, required=False
     )
     parser.add_argument(
         '--plots-save-dir', type=str, help='A path to the folder (from the project root) to save plots',
-        default='visualization', required=False
+        default=VISUALIZATIONS, required=False
     )
     parser.add_argument(
         '--low-freq', type=int, help='A lower bound of a frequency band', default=100, required=False
